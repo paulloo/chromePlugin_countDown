@@ -1,0 +1,62 @@
+{
+  "name": "call-elastic-scorpion",
+  "displayName": "Call elastic scorpion",
+  "version": "0.0.1",
+  "description": "A basic Plasmo extension.",
+  "author": "paulloo",
+  "scripts": {
+    "dev": "plasmo dev",
+    "dev:next": "next dev --port 1947",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "@plasmohq/messaging": "^0.6.2",
+    "@plasmohq/selector": "^0.0.5",
+    "@plasmohq/storage": "^1.11.0",
+    "axios": "^1.7.2",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.11",
+    "next": "^14.2.4",
+    "plasmo": "0.88.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+    "@types/chrome": "0.0.258",
+    "@types/node": "20.11.5",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.18",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "prettier": "3.2.4",
+    "tailwindcss": "^3.4.4",
+    "typescript": "5.3.3"
+  },
+  "manifest": {
+    "host_permissions": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    "externally_connectable": {
+      "matches": [
+        "*://*.localhost/*"
+      ]
+    },
+    "permissions": [
+      "scripting",
+      "activeTab",
+      "tabs",
+      "storage"
+    ],
+    "web_accessible_resources": [
+      {
+        "matches": [
+          "<all_urls>"
+        ],
+        "resources": []
+      }
+    ]
+  }
+}
