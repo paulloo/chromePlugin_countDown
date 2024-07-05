@@ -27,3 +27,18 @@ export function countDown(date) {
     time: `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`
   }
 }
+
+
+
+// 动态导入文件
+export function loadStaticFile(soundPath, path="sound") {
+  return import(
+    /* webpackIgnore: true */
+    `${path === 'sound'? 'data-base64:': ''}~assets/${path}/${soundPath}`
+  ).then((module) => {
+    return module.default;
+  }).catch(err => {
+    console.error("Error loading the sound:", err);
+    return null;
+  });
+}

@@ -19,6 +19,7 @@
     "dayjs": "^1.11.11",
     "next": "^14.2.4",
     "plasmo": "0.88.0",
+    "radash": "^12.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -55,7 +56,13 @@
         "matches": [
           "<all_urls>"
         ],
-        "resources": []
+        "resources": [
+          "assets/icon.png",
+          "assets/img/*.jpg",
+          "assets/img/*.svg",
+          "assets/sound/*.mp3",
+          "resources/test.json"
+        ]
       }
     ]
   }

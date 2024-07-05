@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .theme-light {
+    --color-base: theme('colors.white'); 
+    --color-text-base: theme('colors.black'); 
+    --color-off-base: theme('colors.gray.50');
+    --color-text-muted: theme('colors.gray.600');
+    --color-text-muted-hover: theme('colors.gray.500'); 
+    --color-primary: theme('colors.blue.600'); 
+    --color-secondary:theme('colors.blue.300'); 
+  }
+
+  .theme-dark {
+    --color-base: theme('colors.gray.900');
+    --color-text-base: theme('colors.gray.100'); 
+    --color-off-base: theme('colors.gray.800'); 
+    --color-text-muted:theme('colors.gray.300'); 
+    --color-text-muted-hover: theme('colors.gray.200');
+    --color-primary: theme('colors.blue.500'); 
+    --color-secondary: theme('colors.blue.200'); 
+  }
+
+  .theme-solar {
+    --color-base: theme('colors.rose.50'); 
+    --color-text-base: theme('colors.gray.800'); 
+    --color-off-base: theme('colors.rose.200'); 
+    --color-text-muted:theme('colors.gray.600'); 
+    --color-text-muted-hover: theme('colors.rose.500');
+    --color-primary: theme('colors.amber.700'); 
+    --color-secondary: theme('colors.amber.400'); 
+  }
+
+  .theme-evergreen {
+    --color-base: theme('colors.green.900'); 
+    --color-text-base: theme('colors.green.100');
+    --color-off-base: theme('colors.green.800');
+    --color-text-muted:theme('colors.green.200'); 
+    --color-text-muted-hover: theme('colors.green.500');
+    --color-primary: theme('colors.lime.500'); 
+    --color-secondary: theme('colors.lime.50'); 
+  }
+}
+
+.new-tab {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #333;
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0 0 10px;
+    padding: 10px;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+  }

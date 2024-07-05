@@ -3,6 +3,7 @@ import type { PlasmoMessaging } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 import axios from "axios";
 import dayjs from "dayjs";
+import { isEmpty } from "radash";
 import { countDown } from "~utils";
 const storage = new Storage()
 
@@ -42,10 +43,14 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       res.send({ message: "start repeat" });
     }
 
+    const currentTheme = await storage.get('currentTheme') || {}
+
     clearInterval(intervalId);
     clearInterval(progressTimer);
     console.log("deadLine: ",  deadLine,  req.body.action)
-    if( req.body.action === "stop") {
+    const afterNow = deadLine && dayjs(deadLine).isAfter(dayjs())
+    if( req.body.action === "stop" || !afterNow) {
+      await storage.remove('deadLine')
       res.send({ message: "stop countdown" });
       return
     }
@@ -59,7 +64,6 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       if (ms <= 0) {
         clearInterval(intervalId);
         chrome.runtime.sendMessage({ name: "countdownFinished" });
-        
         chrome.action.setBadgeText({ text: 'Done' })
 
         goDonePage()
@@ -67,7 +71,8 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       } else {
         
         chrome.action.setBadgeText({ text: badge })
-        chrome.action.setBadgeBackgroundColor({ color: [0, 255, 0, 0] })
+        console.log("currentTheme: ", currentTheme)
+        // chrome.action.setBadgeBackgroundColor({ color: !isEmpty(currentTheme)? currentTheme.color: [0, 255, 0, 0] })
         chrome.runtime.sendMessage({ name: "countdownUpdate", body: { days, time, hours, minutes, seconds, ms } });
       }
     }, 1000);
