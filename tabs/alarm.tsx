@@ -6,6 +6,7 @@ import { usePort } from "@plasmohq/messaging/hook"
 import { Storage } from "@plasmohq/storage"
 
 
+import simpleDoneBg from "~assets/img/BG01.jpg"
 import simpleSnd from "data-base64:~assets/sound/alarm1.mp3"
 
 import falloutSnd from "data-base64:~assets/sound/mr_stranger.mp3"
@@ -122,11 +123,10 @@ export default function DeltaFlyerPage() {
     <div
       className="min-h-screen min-w-screen flex items-center justify-center bg-no-repeat bg-center"
       style={{
-        backgroundImage: `url(${!isEmpty(currentTheme) ? currentTheme.doneBg : simpleSnd})`
+        backgroundImage: `url(${!isEmpty(currentTheme) ? currentTheme.doneBg : simpleDoneBg})`
       }}>
       <div className="">
-        {!isEmpty(currentTheme) ? (
-          <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center">
             <div className="mt-10">
               <div className="relative w-36 h-30 rounded-full transition duration-500 z-10">
                 <svg>
@@ -170,7 +170,6 @@ export default function DeltaFlyerPage() {
               </div>
             </div>
           </div>
-        ) : null}
 
         <div className="block text-center mt-5">
           <button
