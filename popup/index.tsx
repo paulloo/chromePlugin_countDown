@@ -15,6 +15,7 @@ import { countDown, padZero } from "~utils"
 import "../styles/main.css"
 
 
+import generalSnd from "data-base64:~assets/sound/general.wav"
 import simpleDoneBg from "~assets/img/BG01.jpg"
 import simpleBg from "~assets/img/bg_simple.jpg"
 import simpleIcon from "~assets/img/icon_stopwatch.svg"
@@ -165,7 +166,7 @@ function IndexPopup() {
 
   const [currentTheme, setCurrentTheme] = useStorage('currentTheme', {})
 
-  const [allAddedSeconds, setAllAddedSeconds] = useStorage("allAddedSeconds", 30)
+  const [allAddedSeconds, setAllAddedSeconds] = useStorage("allAddedSeconds", 0)
   const [deadLine, setDeadLine] = useStorage("deadLine", "")
 
   const [countDownDays, setCountDownDays] = useState("")
@@ -183,9 +184,23 @@ function IndexPopup() {
     seconds: number
   ): string {
     if (days > 0) return `${days}d`
-    if (hours > 0) return `${hours}h`
+    if (hours > 0) return `${hours}h` 
     if (minutes > 0) return `${minutes}m`
     return `${seconds}s`
+  }
+
+  const audioRef = useRef(null)
+
+  async function playAudio() {
+    // const audioUrl = await loadStaticFile(audioName)
+   
+
+    if(audioRef.current) {
+      audioRef.current.pause()
+    }
+
+    audioRef.current = new Audio(generalSnd)
+    audioRef.current.play()
   }
 
   async function resetCount() {
@@ -194,7 +209,7 @@ function IndexPopup() {
     setCouting(false)
     chrome.action.setBadgeText({ text: "" })
     setDeadLine('')
-    setAllAddedSeconds(30)
+    setAllAddedSeconds(0)
     const resp = await sendToBackground({
       name: "countdown",
       body: {
@@ -234,6 +249,8 @@ function IndexPopup() {
   // 用react 状态来控制 这个评价 五星 的星级评价
 
   async function setting() {
+
+    playAudio()
     // deadLine 必须要在当前之间之后
     const afterNow = deadLine && dayjs(deadLine).isAfter(dayjs())
     console.log("localDeadLine: ", deadLine, afterNow, couting)
@@ -275,6 +292,7 @@ function IndexPopup() {
   }
 
   async function handleRange(item) {
+    playAudio()
     setDeadLine("")
     // resetCount()
 
@@ -320,7 +338,12 @@ function IndexPopup() {
   }
 
   async function changeTheme(item) {
-    // setCurrentTheme(item)
+
+    playAudio()
+    setCurrentTheme(item)
+
+
+    chrome.action.setBadgeBackgroundColor({ color: item.color? item.color: [0, 255, 0, 0] })
   }
 
   useEffect(() => {
@@ -332,7 +355,7 @@ function IndexPopup() {
       if (message.name === "countdownUpdate") {
         setCountDownTime(message.body.time)
         setCouting(true)
-        chrome.action.setBadgeBackgroundColor({ color: currentTheme.color? currentTheme.color: [0, 255, 0, 0] })
+        // chrome.action.setBadgeBackgroundColor({ color: currentTheme.color? currentTheme.color: [0, 255, 0, 0] })
       } else if (message.name === "countdownFinished") {
         console.log("Countdown finished")
       } else if (message.name === "countdownProgress") {
@@ -480,7 +503,7 @@ function IndexPopup() {
                   d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"></path>
               </svg>
 
-              {couting ? "取消" : `快速开始(${allAddedSeconds}s)`}
+              {couting ? "取消" : `开始`}
             </button>
           </div>
         </div>

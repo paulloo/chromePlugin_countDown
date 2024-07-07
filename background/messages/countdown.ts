@@ -43,7 +43,6 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       res.send({ message: "start repeat" });
     }
 
-    const currentTheme = await storage.get('currentTheme') || {}
 
     clearInterval(intervalId);
     clearInterval(progressTimer);
@@ -55,7 +54,7 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       return
     }
 
-    intervalId = setInterval(() => {
+    intervalId = setInterval(async () => {
 
       const { days, time, hours, minutes, seconds, ms } = countDown(deadLine)
 
@@ -71,7 +70,7 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       } else {
         
         chrome.action.setBadgeText({ text: badge })
-        console.log("currentTheme: ", currentTheme)
+        const currentTheme = await storage.get('currentTheme') || {}
         // chrome.action.setBadgeBackgroundColor({ color: !isEmpty(currentTheme)? currentTheme.color: [0, 255, 0, 0] })
         chrome.runtime.sendMessage({ name: "countdownUpdate", body: { days, time, hours, minutes, seconds, ms } });
       }

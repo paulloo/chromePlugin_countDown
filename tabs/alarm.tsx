@@ -20,7 +20,7 @@ import r2d2Snd from "data-base64:~assets/sound/r2d2.mp3"
 
 import defaultIcon from '~assets/icon.png'
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useStorage } from "@plasmohq/storage/hook"
 import "../styles/main.css"
 
@@ -49,13 +49,21 @@ export default function DeltaFlyerPage() {
   }
 
 
+  const audioRef = useRef(null)
+
   async function playAudio(audioName: string) {
     // const audioUrl = await loadStaticFile(audioName)
-    if (isEmpty(audioJson[audioName])) {
-      return
+
+    if(audioRef.current) {
+      audioRef.current.pause()
     }
-    const audio = new Audio(audioJson[audioName])
-    audio.play()
+
+    let audioSource = audioJson[audioName]
+    if (isEmpty(audioJson[audioName])) {
+      audioSource = simpleSnd
+    }
+    audioRef.current = new Audio(audioSource)
+    audioRef.current.play()
   }
 
   useEffect(() => {
@@ -64,9 +72,9 @@ export default function DeltaFlyerPage() {
       playAudio(currentTheme.snd)
       setCurrentTheme(currentTheme)
     }
-    if(!isEmpty(currentTheme)) {
+    // if(!isEmpty(currentTheme)) {
       getCurrentTheme()
-    }
+    // }
   }, [currentTheme])
 
   function handleClose() {
@@ -107,7 +115,6 @@ export default function DeltaFlyerPage() {
 
     chrome.action.setBadgeText({ text: `${allAddedSeconds}s` })
 
-    debugger
     handleClose()
   }
 
