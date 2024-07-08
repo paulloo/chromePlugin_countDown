@@ -9,10 +9,7 @@ import {
 } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
-
-import { countDown, padZero } from "~utils"
-
-import windowChange from "./content"
+import { getPort } from '@plasmohq/messaging/port'
 
 import "../styles/main.css"
 
@@ -41,6 +38,7 @@ import r2d2Icon from "~assets/img/icon_r2d2.svg"
 import simpleIcon from "~assets/img/icon_stopwatch.svg"
 
 import StarRating from "./StarRating"
+import { usePort } from "@plasmohq/messaging/hook"
 
 const projects = [
   {
@@ -119,6 +117,8 @@ const projects = [
 
 const storage = new Storage()
 
+const capturePort = getPort('capture')
+
 function IndexPopup() {
   const timerRef = useRef(null)
   const progressTimerRef = useRef(null)
@@ -194,7 +194,12 @@ function IndexPopup() {
       if (chrome.runtime.lastError || !response) {
         console.log("Failed to get page info.")
       } else {
-        console.log(response)
+        console.log('captureFullPage cb: ', response)
+        // capturePort.postMessage({
+        //   body: {
+        //     url: response
+        //   }
+        // })
       }
     })
   }
