@@ -107,7 +107,7 @@ async function captureFullPage() {
   
     const totalHeightCanvas = images.reduce((acc, { img, y }, index) => {
       const imgHeight = (index === images.length - 1)
-        ? Math.min(windowHeight, height - y)
+        ? Math.min(img.height - windowHeight, height - y)
         : img.height;
       return acc + imgHeight;
     }, 0)
@@ -118,9 +118,9 @@ async function captureFullPage() {
     const ctx = canvas.getContext('2d');
     let currentY = 0;
     images.forEach(({img, y}, index) => {
-      const sourceY = (index === 0) ? 0 : 0;
+      console.log(img.height, windowHeight, height,y)
+      const sourceY = (index === images.length - 1) ? img.height - windowHeight : 0;
       const destY = currentY;
-      // const imgHeight = (index === images.length - 1)? (height - y): img.height
       const imgHeight = (index === images.length - 1)
         ? Math.min(windowHeight, height - y)
         : img.height;
