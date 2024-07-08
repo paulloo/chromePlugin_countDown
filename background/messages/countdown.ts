@@ -13,10 +13,10 @@ function formatDuration(
   minutes: number,
   seconds: number
 ): string {
-  if (days > 0) return `${days}天`
-  if (hours > 0) return `${hours}时`
-  if (minutes > 0) return `${minutes}分`
-  return `${seconds}秒`
+  if (days > 0) return `${days}d`
+  if (hours > 0) return `${hours}h`
+  if (minutes > 0) return `${minutes}m`
+  return `${seconds}s`
 }
 
 let intervalId = null;

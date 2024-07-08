@@ -1,8 +1,8 @@
 {
-  "name": "call-elastic-scorpion",
-  "displayName": "Call elastic scorpion",
+  "name": "quick_countdown",
+  "displayName": "quick countdown",
   "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
+  "description": "A quick countdown extension.",
   "author": "paulloo",
   "scripts": {
     "dev": "plasmo dev",
