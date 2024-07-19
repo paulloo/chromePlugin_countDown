@@ -164,7 +164,7 @@ function IndexPopup() {
 
   const defaultTheme = projects[0]
 
-  const [currentTheme, setCurrentTheme] = useStorage('currentTheme', {})
+  const [currentTheme, setCurrentTheme] = useStorage('currentTheme', defaultTheme)
 
   const [allAddedSeconds, setAllAddedSeconds] = useStorage("allAddedSeconds", 0)
   const [deadLine, setDeadLine] = useStorage("deadLine", "")
@@ -444,7 +444,7 @@ function IndexPopup() {
           </div>
         )}
 
-        {/* <div className="flex px-4 pb-4">
+        <div className="flex px-4 pb-4">
           {projects.map((item) => {
             return (
               <div
@@ -456,7 +456,7 @@ function IndexPopup() {
               </div>
             )
           })}
-        </div> */}
+        </div>
 
         {/* <StarRating /> */}
 

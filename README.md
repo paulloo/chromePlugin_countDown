@@ -1,5 +1,10 @@
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
+![vader](./assets/show/london.jpg)
+![vader](./assets/show/pokemon.png)
+![vader](./assets/show/vader.png)
+
+
 ## Getting Started
 
 First, run the development server:
